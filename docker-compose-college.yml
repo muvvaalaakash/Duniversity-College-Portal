@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  college-web:
+    build: public/college-portal/Dockerfile
+    container_name: college-container
+    ports:
+      -3015:3000
+    environment:
+      - .env
+    
