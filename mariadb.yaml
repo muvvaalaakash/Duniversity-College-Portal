@@ -18,20 +18,28 @@ spec:
         ports:
         - containerPort: 3306
 
-        envFrom:
-        - configMapRef:
-            name: col-cfg
-        - secretRef:
-            name: col-secret
+        env:
+        - name: MARIADB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: col-secret
+              key: MARIADB_ROOT_PASSWORD
 
         volumeMounts:
         - name: mariadb-storage
-          mountPath: /var/lib/mysql   # 🔥 critical path
+          mountPath: /var/lib/mysql
+
+        - name: initdb
+          mountPath: /docker-entrypoint-initdb.d
 
       volumes:
       - name: mariadb-storage
         persistentVolumeClaim:
           claimName: mariadb-pvc
+
+      - name: initdb
+        configMap:
+          name: mariadb-init
 ---
 apiVersion: v1
 kind: Service
