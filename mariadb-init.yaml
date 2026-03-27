@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mariadb-init
+data:
+  init.sql: |
+    CREATE DATABASE grievance_db;
+    CREATE DATABASE leave_db;
+    CREATE DATABASE timetable_db;
+    CREATE DATABASE exams_db;
+
+    CREATE USER 'college_user'@'%' IDENTIFIED BY 'deereddy@123';
+    GRANT ALL PRIVILEGES ON *.* TO 'college_user'@'%';
+    FLUSH PRIVILEGES;
