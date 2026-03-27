@@ -4,7 +4,7 @@ metadata:
   name: col-cfg
 data:
   DB_USER: "college_user"
-  DB_HOST: "mariadb"
+  DB_HOST: "mariadb.default.svc.cluster.local"
   DB_PORT: "3306"
   GRIEVANCE_DB: "grievance_db"
   LEAVE_DB: "leave_db"
