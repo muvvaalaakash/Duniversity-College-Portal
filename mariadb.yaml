@@ -4,7 +4,7 @@ metadata:
   name: mariadb-deploy
 spec:
   serviceName: mariadb   # ✅ REQUIRED
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: mariadb
