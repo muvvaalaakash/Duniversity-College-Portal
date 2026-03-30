@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata: 
-  name: college-deploy
+  name: {{ .Values.app.name }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.app.replicaCount }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -19,18 +19,15 @@ spec:
     spec:
       containers:
       - name: college-cont
-        image: ashutosh4782/duniversity-college-portal-backend:latest
-        
+        image: {{ .Values.image.repository }}: {{ .Values.image.tag }}
         ports:
-        - containerPort: 3000
-
+        - containerPort: {{ .Values.ports.containerPort }}
         # 🔥 THIS IS THE MAIN CHANGE
         envFrom:
         - configMapRef:
             name: col-cfg
         - secretRef:
             name: col-secret
-
         resources:
           requests:
             memory: "128Mi"
