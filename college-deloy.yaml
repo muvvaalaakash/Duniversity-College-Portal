@@ -3,7 +3,7 @@ kind: Deployment
 metadata: 
   name: {{ .Values.app.name }}
 spec:
-  replicas: {{ .Values.app.replicaCount }}
+  replicas: {{ .Values.replicaCount }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
