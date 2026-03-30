@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mariadb-deploy
+spec:
+  serviceName: mariadb   # ✅ REQUIRED
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mariadb
+
+  template:
+    metadata:
+      labels:
+        app: mariadb
+    spec:
+      terminationGracePeriodSeconds: 10
+
+      containers:
+      - name: mariadb
+        image: mariadb:10.5
+        ports:
+        - containerPort: 3306
+
+        env:
+        - name: MARIADB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: col-secret
+              key: MARIADB_ROOT_PASSWORD
+
+        volumeMounts:
+        - name: mariadb-storage
+          mountPath: /var/lib/mysql
+
+        - name: initdb
+          mountPath: /docker-entrypoint-initdb.d
+
+      volumes:
+      - name: initdb
+        configMap:
+          name: mariadb-init
+
+  volumeClaimTemplates:
+  - metadata:
+      name: mariadb-storage
+    spec:
+      storageClassName: nfs-client
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 2Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mariadb
+spec:
+  clusterIP: None
+  selector:
+    app: mariadb
+  ports:
+    - port: 3306
