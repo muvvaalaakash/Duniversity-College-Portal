@@ -18,7 +18,7 @@ spec:
 
       containers:
       - name: mariadb
-        image: {{ .Values.StatefulSet.image.repository }}:{{ .Values.StatefulSet.image.tag }}
+        image: "{{ .Values.StatefulSet.image.repository }}:{{ .Values.StatefulSet.image.tag }}"
         ports:
         - containerPort: {{ .Values.StatefulSet.ports.containerPort }}
 
