@@ -9,3 +9,13 @@ image:
 
 ports:
   containerPort: 3000
+
+StatefulSet:
+  - app:
+      name: mariadb-deploy
+    repliacCount: 2
+    image: 
+      repository: mariadb
+      tag: 10.5
+    ports:
+      containerPort: 3306
