@@ -4,7 +4,7 @@ metadata:
   name: {{ .Values.StatefulSet.app.name }}
 spec:
   serviceName: mariadb   # ✅ REQUIRED
-  replicas: {{ .Values.StatefulSet.repliacCount }}
+  replicas: {{ .Values.StatefulSet.replicaCount }}
   selector:
     matchLabels:
       app: mariadb
