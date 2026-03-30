@@ -5,7 +5,7 @@ metadata:
 provisioner: nfs.csi.k8s.io
  
 parameters:
-  server: 10.0.1.159
+  server: 172.31.40.121
   share: /var/nfs/general
  
 reclaimPolicy: Delete
