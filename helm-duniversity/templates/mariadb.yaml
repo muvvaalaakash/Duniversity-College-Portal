@@ -45,7 +45,7 @@ spec:
   - metadata:
       name: mariadb-storage
     spec:
-      storageClassName: nfs-client
+      storageClassName: csi-standard
       accessModes: ["ReadWriteOnce"]
       resources:
         requests:
